@@ -1,0 +1,23 @@
+sitemap demo label="Main Menu"  
+{  
+	Frame label="Temperatures" {
+		Text item=EnOcean_sensor_01809DC1 valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+		Text item=EnOcean_sensor_0181A67A valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+		Text item=EnOcean_sensor_0181B05F valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+		Switch item=Temperature_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week"]
+		Chart item=Temperature_Chart period=h refresh=300 visibility=[Temperature_Chart_Period==0, Temperature_Chart_Period=="Uninitialized"]
+		Chart item=Temperature_Chart period=D refresh=1800 visibility=[Temperature_Chart_Period==1]
+		Chart item=Temperature_Chart period=W refresh=3600 visibility=[Temperature_Chart_Period==2]
+	}
+	Frame label="Contacts" {
+		Text item=EnOcean_sensor_0180AAFA
+		Text item=EnOcean_sensor_0180878B
+		Text item=EnOcean_sensor_0180FC58
+	}
+	Frame label="Lights" {
+		Switch         item=Toggle_1                                label="Garage"
+		Colorpicker    item=Color_1    visibility=[Toggle_1==ON]    label="Garage Light Color"
+		Slider         item=Dimm_1     visibility=[Toggle_1==ON]    label="Garage Brightness" 
+		Slider         item=CT_Dimm_1  visibility=[Toggle_1==ON]    label="Garage Color Temperature"
+	}  
+}

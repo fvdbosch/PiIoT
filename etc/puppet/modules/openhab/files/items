@@ -1,0 +1,14 @@
+Contact EnOcean_sensor_0180878B "Veranda door [MAP(en.map):%s]" <door> (Contacts) {enocean="{id=01:80:87:8B, eep=D5:00:01, parameter=CONTACT_STATE}"}
+Contact EnOcean_sensor_0180FC58 "Garage door [MAP(en.map):%s]" <garagedoor> (Contacts) {enocean="{id=01:80:FC:58, eep=D5:00:01, parameter=CONTACT_STATE}"}
+Contact EnOcean_sensor_0180AAFA "Front door [MAP(en.map):%s]" <frontdoor> (Contacts) {enocean="{id=01:80:AA:FA, eep=D5:00:01, parameter=CONTACT_STATE}"}
+
+Group Temperature_Chart <temperature>
+Number EnOcean_sensor_01809DC1 "Garage [%.1f °C]" <temperature> (Temperature_Chart) {enocean="{id=01:80:9D:C1, eep=A5:02:05, parameter=TEMPERATURE}"}
+Number EnOcean_sensor_0181A67A "Veranda [%.1f °C]" <temperature> (Temperature_Chart) {enocean="{id=01:81:A6:7A, eep=A5:02:05, parameter=TEMPERATURE}"}
+Number EnOcean_sensor_0181B05F "Bathroom [%.1f °C]" <temperature> (Temperature_Chart) {enocean="{id=01:81:B0:5F, eep=A5:02:05, parameter=TEMPERATURE}"}
+Number Temperature_Chart_Period	"Chart Period"
+
+Switch Toggle_1   "Garage bulb"   (Switching) {hue="1"}
+Color Color_1     "Garage bulb"   (Colorize)  {hue="1"}
+Dimmer Dimm_1     "Garage bulb"   (WhiteDimmer)   {hue="1;brightness;30"}
+Dimmer CT_Dimm_1      "Garage bulb"   (CTDimmer)  {hue="1;colorTemperature;30"}
