@@ -2,8 +2,6 @@ class openhab {
 
   include apt
 
-  $config_path = '/etc/openhab/configurations/'
-
   apt::key { 'openhab':
     key_source => 'https://bintray.com/user/downloadSubjectPublicKey?username=openhab',
   }
@@ -35,18 +33,17 @@ class openhab {
   }
 
   file {
-    'openhab.cfg':
-      source => 'puppet:///modules/openhab/config',
-      target => '${config_path}/openhab.cfg';
-    '${config_path}/sitemaps/openhab.sitemap':
+    '/etc/openhab/configurations/openhab.cfg':
+      source => 'puppet:///modules/openhab/config';
+    '/etc/openhab/configurations/sitemaps/openhab.sitemap':
       source  => 'puppet:///modules/openhab/sitemap';
-    '${config_path}/items/openhab.items':
+    '/etc/openhab/configurations/items/openhab.items':
       source  => 'puppet:///modules/openhab/items';
-    '${config_path}/rules/openhab.rules':
+    '/etc/openhab/configurations/rules/openhab.rules':
       source  => 'puppet:///modules/openhab/rules';
-    '${config_path}/transform/openhab.transform':
+    '/etc/openhab/configurations/transform/openhab.transform':
       source  => 'puppet:///modules/openhab/transform';
-    '${config_path}/persistence/openhab.persistence':
+    '/etc/openhab/configurations/persistence/openhab.persistence':
       source  => 'puppet:///modules/openhab/persistence';
   }
 }

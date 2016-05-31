@@ -1,1 +1,3 @@
-include openhab
+node default {
+  include openhab
+}
