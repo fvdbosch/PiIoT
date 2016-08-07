@@ -1,0 +1,319 @@
+# This is the default configuration file, which comes with every openHAB distribution.
+# You should do a copy of it with the name 'openhab.cfg' and configure your personal
+# settings in there. This way you can be sure that they are not overwritten, if you
+# update openHAB one day.
+
+
+#######################################################################################
+#####                        General configurations                               #####
+#######################################################################################
+
+# Configuration folders (must exist as a subdirectory of "configurations"; the value
+# tells the number of seconds for the next scan of the directory for changes. A
+# value of -1 deactivates the scan).
+# A comma separated list can follow after the refresh value. This list defines a filter
+# for valid file extensions for the models.
+folder:items=10,items
+folder:sitemaps=10,sitemap
+folder:rules=10,rules
+folder:scripts=10,script
+folder:persistence=10,persist
+
+# configures the security options. The following values are valid:
+# ON = security is switched on generally
+# OFF = security is switched off generally
+# EXTERNAL = security is switched on for external requests
+#            (e.g. originating from the Internet) only
+# (optional, defaults to 'OFF')
+security:option=<%= @security %>
+
+# the Netmask to define a range of internal IP-Addresses which doesn't require
+# authorization (optional, defaults to '192.168.1.0/24')
+#security:netmask=
+
+# The name of the default persistence service to use
+persistence:default=mysql
+
+# The refresh interval for the main configuration file. A value of '-1'
+# deactivates the scan (optional, defaults to '-1' hence scanning is deactivated)
+#mainconfig:refresh=
+
+# Bind service discovery to specific hostname or IP address
+#servicediscovery:bind_address=127.0.0.1
+
+################################## Chart Servlet ######################################
+#
+# This section defines the configuration for the chart servlet.
+chart:provider=default
+
+#
+# Set the default height of a chart if the client doesn't provide this in the request
+# defaults to 240
+#chart:defaultHeight=240
+
+#
+# Set the default width of a chart if the client doesn't provide this in the request
+# defaults to 480
+#chart:defaultWidth=480
+
+#
+# Set a scale factor. This is used if the client sets the size in the request.
+# defaults to 1 (ie no scaling)
+#chart:scale=1
+
+
+#######################################################################################
+#####                       Action configurations                                 #####
+#######################################################################################
+
+######################## Mail Action configuration ####################################
+#
+# The SMTP server hostname, e.g. "smtp.gmail.com"
+#mail:hostname=
+
+# the SMTP port to use (optional, defaults to 25 (resp. 587 for TLS))
+#mail:port=
+
+# the username and password if the SMTP server requires authentication
+#mail:username=
+#mail:password=
+
+# The email address to use for sending mails
+#mail:from=
+
+# set to "true", if TLS should be used for the connection
+# (optional, defaults to false)
+#mail:tls=
+
+# set to "true", if POP before SMTP (another authentication mechanism)
+# should be enabled. Username and Password are taken from the above
+# configuration (optional, default to false)
+#mail:popbeforesmtp=
+
+# Character set used to encode message body
+# (optional, if not provided platform default is used)
+#mail:charset=
+
+########################## Prowl Action configuration #################################
+#
+# the apikey for authentication (generated on the Prowl website)
+#prowl:apikey=
+
+# the default priority of a Prowl notifications (optional, defaults to '0')
+#prowl:defaultpriority=
+
+# the url of the Prowl public api
+# (optional, defaults to 'https://prowl.weks.net/publicapi/')
+#prowl:url=
+
+########################### Twitter Action configuration ##############################
+#
+# The ConsumerKey, ConsumerSecret combination (optional, defaults to official Twitter-App
+# Key-Secret-Combination)
+#twitter:key=
+#twitter:secret=
+
+# Flag to enable/disable the Twitter client (optional, defaults to 'false')
+#twitter:enabled=
+
+#######################################################################################
+#####                   I/O component configurations                              #####
+#######################################################################################
+
+########################## Google Calendar configuration ##############################
+#
+# the username and password for Google Calendar Account
+#gcal:username=
+#gcal:password=
+
+# the url of the calendar feed
+#gcal:url=
+
+# the filter criteria for full text query (optional)
+#gcal:filter=
+
+# refresh interval in milliseconds (optional, defaults to 900000 [15 minutes])
+#gcal:refresh=
+
+############################# Dropbox configuration ###################################
+#
+# Operates the Synchronizer in fake mode which avoids up- or downloading files to and from Dropbox.
+# This is meant as testMode for the filter settings (optional, defaults to false)
+#dropbox:fakemode=
+
+# the up- and download interval as Cron-Expression. See the Quartz-Tutorial
+# http://quartz-scheduler.org/documentation/quartz-2.x/tutorials/tutorial-lesson-06
+# for more information on how to use them best (optional, defaults to '0 0/5 * * * ?'
+# which means every 5 minutes)
+#dropbox:uploadInterval=
+#dropbox:downloadInterval=
+
+# the AppKey, AppSecret combination (optional, defaults to official Dropbox-App
+# Key-Secret-Combination)
+#dropbox:appkey=
+#dropbox:appsecret=
+
+# defines the mode how files are synchronized with dropbox. Valid SyncModes are
+# 'DROPBOX_TO_LOCAL', 'LOCAL_TO_DROPBOX' and 'BIDIRECTIONAL' (optional, defaults
+# to 'LOCAL_TO_DROPBOX')
+#dropbox:syncmode=
+
+# the base directory to synchronize with openHAB, configure 'filter' to select
+# files (optional, defaults to '.')
+#dropbox:contentdir=
+
+# defines a comma separated list of regular expressions which matches the
+# filenames to upload to Dropbox (optional, defaults to '/configurations/.*,
+# /logs/.*, /etc/.*')
+#dropbox:uploadfilter=
+
+# defines a comma separated list of regular expressions which matches the
+# filenames to download from Dropbox (optional, defaults to '/configurations/.*')
+#dropbox:downloadfilter=
+
+#######################################################################################
+#####                      Persistence configurations                             #####
+#######################################################################################
+
+<% if @persistence == true -%>
+############################ SQL Persistence Service ##################################
+# the database url like 'jdbc:mysql://<host>:<port>/<database>' (without quotes)
+mysql:url=jdbc:mysql://localhost/<%= @db_name %>'
+
+# the database user
+mysql:user=<%= @db_user %>
+
+# the database password
+mysql:password=<%= @db_pass %>
+
+# the reconnection counter
+#mysql:reconnectCnt=
+
+# the connection timeout (in seconds)
+#mysql:waitTimeout=
+<% end -%>
+
+#######################################################################################
+#####                        Binding configurations                               #####
+#######################################################################################
+
+############################# Bluetooth Binding #######################################
+#
+# Bluetooth refresh rate in seconds
+# (defines, how often a new device detection scan is performed)
+#bluetooth:refresh=20
+
+################################ NTP Binding ##########################################
+#
+# refresh interval in milliseconds (optional, defaults to 900000 [15 minutes])
+#ntp:refresh=
+
+# the hostname of the timeserver
+ntp:hostname=ptbtime1.ptb.de
+
+################################ MPD Binding ##########################################
+#
+# Host and port of the first MPD to control
+# mpd:<player-id-1>.host=
+# mpd:<player-id-1>.port=
+
+# The password to authenticate against the MPD server (optional, can be null to
+# indicate that no authentication is required)
+# mpd:<player-id-1>.password=
+
+# Host and port of the second MPD to control
+# mpd:<player-id-2>.host=
+# mpd:<player-id-2>.port=
+
+# The password to authenticate against the MPD server (optional, can be null to
+# indicate that no authentication is required)
+# mpd:<player-id-2>.password=
+
+############################### Philips Hue Binding ###################################
+#
+# IP address of Hue Bridge (optional, default is auto-discovery)
+hue:ip=192.168.0.143
+
+# Default secret key for the pairing of the Philips Hue Bridge.
+# It has to be between 10-40 (alphanumeric) characters
+# This may be changed by the user for security reasons.
+hue:secret=openHABRuntime
+
+# Polling interval in msec to retrieve Philips bulb status.
+# Other apps can change Hue status or a physical switch can turn on / off lamp status.
+# If this happens the status of hue lamps within OpenHAB won't reflect the real status.
+# Currently (September 2014) there is no push technology available, so the only option is
+# to poll Philips bulbs to retrieve status and update items accordingly to reflect changes.
+# Polling is enabled if refresh is specified, by commenting out "hue:refresh=10000" statement.
+# Be aware that polling will consume resources, so a small refresh interval will increase cpu load.
+# hue:refresh=10000
+
+################################ SAMSUNG TV Binding ###################################
+#
+# Host of the first TV to control
+# samsungtv:<TVid1>.host=
+# Port of the TV to control (optional, defaults to 55000)
+# samsungtv:<TVid1>.port=
+
+# Host of the second TV to control
+# samsungtv:<TVid2>.host=
+# Port of the TV to control (optional, defaults to 55000)
+# samsungtv:<TVid2>.port=
+
+<% if @enocean -%>
+################################# EnOcean Binding #####################################
+#
+# EnOcean USB adapter serial port
+enocean:serialPort=<%= @enocean_serial %>
+<% end -%>
+
+########################### Open Energy Monitor Binding ###############################
+#
+# UDP port of the Open Energy Monitor devices (optional, defaults to 9997)
+#openenergymonitor:udpPort=9997
+
+# For testing purposes
+#openenergymonitor:simulate=true
+
+################################### Weather Binding ###################################
+#
+# The apikey for the different weather providers, at least one must be specified
+# Note: Hamweather requires two apikeys: client_id=apikey, client_secret=apikey2
+#weather:apikey.ForecastIo=
+#weather:apikey.OpenWeatherMap=
+#weather:apikey.WorldWeatherOnline=
+#weather:apikey.Wunderground=
+#weather:apikey.Hamweather=
+#weather:apikey2.Hamweather=
+
+# location configuration, you can specify multiple locations
+#weather:location.<locationId1>.name=
+#weather:location.<locationId1>.latitude=
+#weather:location.<locationId1>.longitude=
+#weather:location.<locationId1>.provider=
+#weather:location.<locationId1>.language=
+#weather:location.<locationId1>.updateInterval=
+
+#weather:location.<locationId2>.name=
+#weather:location.<locationId2>.latitude=
+#weather:location.<locationId2>.longitude=
+#weather:location.<locationId2>.provider=
+#weather:location.<locationId2>.language=
+#weather:location.<locationId2>.updateInterval=
+
+#######################################################################################
+#####                       Transport configurations                              #####
+#######################################################################################
+
+################################# MQTT Transport ######################################
+#
+# Define your MQTT broker connections here for use in the MQTT Binding or MQTT
+# Persistence bundles. Replace <broker> with a id you choose.
+#
+
+# URL to the MQTT broker, e.g. tcp://localhost:1883 or ssl://localhost:8883
+mqtt:mosquitto.url=tcp://192.168.0.123:1883
+mqtt:mosquitto.user=emonpi
+mqtt:mosquitto.pwd=emonpimqtt2016
+mqtt:mosquitto.qos=2
+mqtt:mosquitto.retain=false

@@ -1,22 +1,12 @@
-class openhab::configuration (
-  $version        = 2,
+class openhab2::configuration (
   $security       = 'OFF',
-  $enocean        = false,
+  $enocean        = true,
   $enocean_serial = '/dev/ttyS0',
   $persistence    = false,
   $db_name        = 'openhab',
   $db_user        = 'openhab',
   $db_pass        = 'openhab',
 ) {
-
-  # Bindings
-  if $enocean == true {
-    package {
-      'openhab-addon-binding-enocean':
-        ensure => 'installed',
-        require => Package['openhab-runtime'];
-    }
-  }
 
   # Persistence
   if $persistence == true {
@@ -51,19 +41,24 @@ class openhab::configuration (
 
   File {
     ensure  => 'present',
+    require => Package['openhab2-offline'],
   }
 
   file {
-    '/etc/openhab/configurations/openhab.cfg':
-      content => template('openhab/openhab.cfg.erb');
-    '/etc/openhab/configurations/sitemaps/openhab.sitemap':
-      source  => 'puppet:///modules/openhab/openhab.sitemap';
-    '/etc/openhab/configurations/items/openhab.items':
-      source  => 'puppet:///modules/openhab/openhab.items';
-    '/etc/openhab/configurations/rules/openhab.rules':
-      source  => 'puppet:///modules/openhab/openhab.rules';
-    '/etc/openhab/configurations/transform/openhab.map':
-      source  => 'puppet:///modules/openhab/openhab.map';
+    '/etc/openhab2/openhab.cfg':
+      content => template('openhab2/openhab.cfg.erb'),
+      notify  => Service['openhab2'];
+    '/etc/default/openhab2':
+      content => template('openhab2/openhab2.erb'),
+      notify  => Service['openhab2'];
+    '/etc/openhab2/sitemaps/openhab.sitemap':
+      source  => 'puppet:///modules/openhab2/openhab.sitemap';
+    '/etc/openhab2/items/openhab.items':
+      source  => 'puppet:///modules/openhab2/openhab.items';
+    '/etc/openhab2/rules/openhab.rules':
+      source  => 'puppet:///modules/openhab2/openhab.rules';
+    '/etc/openhab2/transform/openhab.map':
+      source  => 'puppet:///modules/openhab2/openhab.map';
   }
 
 }

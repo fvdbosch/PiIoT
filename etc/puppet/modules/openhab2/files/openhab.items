@@ -1,0 +1,28 @@
+Switch EnOcean_sensor_00298B1A_A "Lab A" <switch> (Switches) {enocean="{id=00:29:8B:1A, eep=F6:02:01, channel=A}"}
+Switch EnOcean_sensor_00298B1A_B "Lab B" <switch> (Switches) {enocean="{id=00:29:8B:1A, eep=F6:02:01, channel=B}"}
+Switch EnOcean_sensor_0028BD8D_A "Shed A" <switch> (Switches) {enocean="{id=00:28:BD:8D, eep=F6:02:01, channel=A}"}
+Switch EnOcean_sensor_0028BD8D_B "Shed B" <switch> (Switches) {enocean="{id=00:28:BD:8D, eep=F6:02:01, channel=B}"}
+Switch EnOcean_sensor_01A3A6F1_C "Master C" <switch> (Switches) {enocean="{id=01:A3:A6:F1, eep=F6:02:01, channel=A}"}
+
+Contact EnOcean_sensor_0180FC58 "Shed [MAP(en.map):%s]" <door> (Contacts) {enocean="{id=01:80:FC:58, eep=D5:00:01, parameter=CONTACT_STATE}"}
+Contact EnOcean_sensor_0180AAFA "Lab [MAP(en.map):%s]" <door> (Contacts) {enocean="{id=01:80:AA:FA, eep=D5:00:01, parameter=CONTACT_STATE}"}
+
+Number EnOcean_sensor_01809DC1 "Room 1 [%.1f °C]" <temperature> (Temperature_Chart) {enocean="{id=01:80:9D:C1, eep=A5:02:05, parameter=TEMPERATURE}"}
+Number EnOcean_sensor_0181A67A "Room 2 [%.1f °C]" <temperature> (Temperature_Chart) {enocean="{id=01:81:A6:7A, eep=A5:02:05, parameter=TEMPERATURE}"}
+Number EnOcean_sensor_0181B05F "Room 3 [%.1f °C]" <temperature> (Temperature_Chart) {enocean="{id=01:81:B0:5F, eep=A5:02:05, parameter=TEMPERATURE}"}
+
+Number  emonpi_ct1      "Shed [%d W]" <energy>    { mqtt="<[emonpi:emon/emonpi/power1:state:default]" }
+Number  emonpi_ct2      "Lab [%d W]" <energy>    { mqtt="<[emonpi:emon/emonpi/power2:state:default]" }
+
+Number TowerLight <light> {mqtt=">[piiot:TowerLight:command:*:${command}]"}
+
+Switch  Hue_Bulb_1_Switch    {channel="hue:LCT007:0017882155ad:3:color"}
+Color   Hue_Bulb_1_Color <colorwheel>    {channel="hue:LCT007:0017882155ad:3:color"}
+Dimmer  Hue_Bulb_1_Dimmer    {channel="hue:LCT007:0017882155ad:3:color"}
+Dimmer  Hue_Bulb_1_ColorTemperature    {channel="hue:LCT007:0017882155ad:3:color_temperature"}
+
+Switch  Hue_Bulb_2_Switch    {channel="hue:LCT007:0017882155ad:2:brightness"}
+Color   Hue_Bulb_2_Color <colorwheel>    {channel="hue:LCT007:0017882155ad:2:color"}
+Dimmer  Hue_Bulb_2_Dimmer    {channel="hue:LCT007:0017882155ad:2:brightness"}
+Dimmer  Hue_Bulb_2_ColorTemperature    {channel="hue:LCT007:0017882155ad:2:color_temperature"}
+

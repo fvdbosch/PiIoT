@@ -1,0 +1,39 @@
+sitemap demo label="Pi IoT Challenge"  
+{  
+        Frame label="EmonPi" {
+                Text item=emonpi_ct1
+                Text item=emonpi_ct2
+	}
+	Frame label="Switches" {
+		Switch item=EnOcean_sensor_00298B1A_A
+		Switch item=EnOcean_sensor_00298B1A_B
+                Switch item=EnOcean_sensor_0028BD8D_A
+                Switch item=EnOcean_sensor_0028BD8D_B
+	}
+	Frame label="Temperature" {
+		Text item=EnOcean_sensor_01809DC1 valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+		Text item=EnOcean_sensor_0181A67A valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+                Text item=EnOcean_sensor_0181B05F valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+	}
+	Frame label="Contacts" {
+                Text item=EnOcean_sensor_0180FC58
+		Text item=EnOcean_sensor_0180AAFA
+	}
+        Frame label="TowerLight" {
+                Switch item=TowerLight label="TowerLight" mappings=[0="Off", 1="Siren", 2="Pulse", 3="Blink"]
+        }
+        Frame label="Lights" {
+                Switch         item=Hue_Bulb_1_Switch   label="Room 1 Switch"
+                Switch         item=Hue_Bulb_2_Switch   label="Room 2 Switch"
+                Colorpicker    item=Hue_Bulb_1_Color    label="Room 1 Color"
+                Colorpicker    item=Hue_Bulb_2_Color    label="Room 2 Color"
+                Slider         item=Hue_Bulb_1_Dimmer   label="Room 1 Brightness"
+                Slider         item=Hue_Bulb_2_Dimmer   label="Room 2 Brightness"
+                Slider         item=Hue_Bulb_1_ColorTemperature   label="Room 1 Color Temperature"
+                Slider         item=Hue_Bulb_2_ColorTemperature   label="Room 2 Color Temperature"
+        }
+        Frame label="Video" {
+                Image url="http://192.168.0.125:8080/" refresh=5000
+                Image url="http://192.168.0.166:8080/" refresh=5000
+        }
+}
