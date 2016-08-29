@@ -1,0 +1,14 @@
+import org.openhab.model.script.actions.*
+
+rule "Door Without Key"
+when
+    Item EnOcean_sensor_0180AAFA changed
+then
+    if(EnOcean_sensor_0180AAFA.state == OPEN) {
+        var key_state = keyholder_key1.state as DecimalType
+
+        if(state == 1) {
+            pushNotification("Shed door", "The shed door has been opened without key!")
+        }
+    }
+end
