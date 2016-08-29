@@ -1,0 +1,21 @@
+import org.openhab.model.script.actions.*
+
+rule "Power Consumption Threshold"
+when
+    Item emonpi_ct1 received update 
+then
+   //pushNotification("Front door 1", "The front door has been open for 5 minutes! Is it supposed to be?")
+end
+
+rule "Door Without Key"
+when
+    Item EnOcean_sensor_0180AAFA changed
+then
+    if(EnOcean_sensor_0180AAFA.state == OPEN) {
+        var key_state = keyholder_key1.state as DecimalType
+
+        if(state == 1) {
+	    pushNotification("Shed door", "The shed door has been opened without key!")
+	}
+    }
+end

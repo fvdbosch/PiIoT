@@ -1,0 +1,46 @@
+Switch EnOcean_sensor_00298B1A_A "Lab A" <switch> (Switches) {enocean="{id=00:29:8B:1A, eep=F6:02:01, channel=A}"}
+Switch EnOcean_sensor_00298B1A_B "Lab B" <switch> (Switches) {enocean="{id=00:29:8B:1A, eep=F6:02:01, channel=B}"}
+Switch EnOcean_sensor_0028BD8D_A "Shed A" <switch> (Switches) {enocean="{id=00:28:BD:8D, eep=F6:02:01, channel=A}"}
+Switch EnOcean_sensor_0028BD8D_B "Shed B" <switch> (Switches) {enocean="{id=00:28:BD:8D, eep=F6:02:01, channel=B}"}
+Switch EnOcean_sensor_01A3A6F1_C "Master C" <switch> (Switches) {enocean="{id=01:A3:A6:F1, eep=F6:10:00}"}
+
+Contact EnOcean_sensor_0180FC58 "Shed [MAP(en.map):%s]" <door> (Contacts) {enocean="{id=01:80:FC:58, eep=D5:00:01, parameter=CONTACT_STATE}"}
+Contact EnOcean_sensor_0180AAFA "Lab [MAP(en.map):%s]" <door> (Contacts) {enocean="{id=01:80:AA:FA, eep=D5:00:01, parameter=CONTACT_STATE}"}
+
+Group Temperature_Chart
+Number Temperature_Chart_Period <temperature>
+Number EnOcean_sensor_01809DC1 "Lab [%.1f]" <temperature> (Temperature_Chart) {enocean="{id=01:80:9D:C1, eep=A5:02:05, parameter=TEMPERATURE}"}
+Number EnOcean_sensor_0181A67A "Living Room [%.1f]" <temperature> (Temperature_Chart) {enocean="{id=01:81:A6:7A, eep=A5:02:05, parameter=TEMPERATURE}"}
+Number EnOcean_sensor_0181B05F "Shed [%.1f]" <temperature> (Temperature_Chart) {enocean="{id=01:81:B0:5F, eep=A5:02:05, parameter=TEMPERATURE}"}
+
+Group Power_Consumption_Chart
+Number Power_Consumption_Chart_Period <energy>
+Number  emonpi_ct1      "Shed [%d]" <energy>   (Power_Consumption_Chart)   { mqtt="<[emonpi:emon/emonpi/power1:state:default]" }
+Number  emonpi_ct2      "Lab [%d]" <energy>   (Power_Consumption_Chart)   { mqtt="<[emonpi:emon/emonpi/power2:state:default]" }
+
+Number TowerLight <light> {mqtt=">[piiot:TowerLight:command:*:${command}]"}
+
+String  keyholder_key1      "Frederick [%s]"    <key>   { mqtt="<[piiot:keyholder/key1:state:default]" }
+String  keyholder_key2      "Sarah [%s]"    <key>   { mqtt="<[piiot:keyholder/key2:state:default]" }
+String  keyholder_key3      "Shed [%s]"    <key>   { mqtt="<[piiot:keyholder/key3:state:default]" }
+String  keyholder_key4      "Garage [%s]"    <key>   { mqtt="<[piiot:keyholder/key4:state:default]" }
+
+Switch  Hue_Bulb_1_Switch    {channel="hue:LCT007:0017882155ad:3:color"}
+Color   Hue_Bulb_1_Color <colorwheel>    {channel="hue:LCT007:0017882155ad:3:color"}
+Dimmer  Hue_Bulb_1_Dimmer    {channel="hue:LCT007:0017882155ad:3:color"}
+
+Switch  Hue_Bulb_2_Switch    {channel="hue:LCT007:0017882155ad:4:brightness"}
+Color   Hue_Bulb_2_Color <colorwheel>    {channel="hue:LCT007:0017882155ad:4:color"}
+Dimmer  Hue_Bulb_2_Dimmer    {channel="hue:LCT007:0017882155ad:4:brightness"}
+
+Number   Temperature   "Temperature [%.1f °C]" <temperature>  {weather="locationId=home, type=temperature, property=current"}
+Number   Humidity    "Humidity [%d %%]"  <humidity>    {weather="locationId=home, type=atmosphere, property=humidity"}
+Number   Wind_Speed           "Windspeed [%.2f km/h]" <wind>   {weather="locationId=home, type=wind, property=speed"}
+String   Condition   "Condition [%s]" <sun_clouds>   {weather="locationId=home, type=condition, property=text"}
+DateTime LastUpdate   "Last update [%1$td/%1$tm/%1$tY %1$tH:%1$tM]"  <calendar>  {weather="locationId=home, type=condition, property=lastUpdate"}
+
+Number Radio "Radio"  <network>
+
+Number Alarm_Clock "Alarm" <switch>
+Number Alarm_Hour "Hour [%d]"  <clock>
+Number Alarm_Minute "Minute [%d]"  <clock>

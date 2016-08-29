@@ -1,0 +1,19 @@
+sitemap demo label="Lab Monitoring"  
+{  
+	Text label="Temperature (°C)" item=EnOcean_sensor_01809DC1 valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"] {
+		Frame label="Lab Temperature (°C)" {
+			Chart item=EnOcean_sensor_01809DC1 period=h refresh=600
+			Chart item=EnOcean_sensor_01809DC1 period=D refresh=3600
+			Chart item=EnOcean_sensor_01809DC1 period=W refresh=3600
+		}
+	}
+	Text label="Door Contact" item=EnOcean_sensor_0180AAFA
+	Text label="Power Consumption (W)" item=emonpi_ct2 {
+		Frame label="Lab Power Consumption (W)" {
+			Chart item=emonpi_ct2 period=h refresh=600
+                        Chart item=emonpi_ct2 period=D refresh=3600
+                        Chart item=emonpi_ct2 period=W refresh=3600
+		}
+	}
+	Image url="http://192.168.0.154:8080/" refresh=5000
+}

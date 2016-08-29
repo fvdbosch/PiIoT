@@ -1,0 +1,27 @@
+sitemap demo label="General Information"  
+{  
+        Frame label="Weather" {
+                Text item=Temperature
+		Text item=Humidity
+                Text item=Condition
+		Text item=Wind_Speed
+		Text item=LastUpdate
+        }
+
+	Frame label="Alarm Clock" {
+		Switch item=Alarm_Clock mappings=[0="Off", 1="On"]
+		Setpoint item=Alarm_Hour minValue=0 maxValue=23 step=1  
+		Setpoint item=Alarm_Minute minValue=0 maxValue=55 step=5  
+	}
+
+	Frame label="Radio" {
+                Switch item=Radio mappings=[0="Off", 1="On"]
+	}
+
+        Frame label="Keys" {
+                Text item=keyholder_key1
+                Text item=keyholder_key2
+                Text item=keyholder_key3
+                Text item=keyholder_key4
+        }
+}

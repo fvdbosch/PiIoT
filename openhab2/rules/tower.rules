@@ -1,0 +1,20 @@
+import org.joda.time.*
+import org.openhab.model.script.actions.Timer
+
+var Timer alertOn
+
+rule "Alert Light"
+when
+    Item EnOcean_sensor_00298B1A_B received update 
+then
+    sendCommand(TowerLight, 1)
+
+    if(alertOn!=null) {
+       alertOn.cancel()
+    }
+    alertOn = createTimer(now.plusMinutes(5)) [|
+        sendCommand(TowerLight, 0)
+    ]
+
+end
+
