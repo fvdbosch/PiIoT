@@ -7,7 +7,7 @@ sitemap demo label="Shed Monitoring"
                         Chart item=EnOcean_sensor_0181B05F period=W refresh=3600
                 }
         }
-	Text label="Door Contact" item=EnOcean_sensor_0180AAFA //EnOcean_sensor_0180FC58
+	Text label="Door Contact" item=EnOcean_sensor_0180FC58
 	Text label="Power Consumption (W)" item=emonpi_ct1 {
                 Frame label="Shed Power Consumption (W)" {
                         Chart item=emonpi_ct1 period=h refresh=600
@@ -16,5 +16,5 @@ sitemap demo label="Shed Monitoring"
                 }
         }
 	Switch label="Alert Light" item=TowerLight mappings=[0="Off", 1="On"]
-	Webview url="http://192.168.0.153:8080/" height=100%
+	Image url="http://192.168.0.153:8080/" height=100%
 }

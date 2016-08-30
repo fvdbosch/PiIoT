@@ -1,0 +1,24 @@
+#JSGF V1.0;
+grammar commands;
+
+<action> = TURN ON	|
+	TURN OFF      	|
+	TEMPERATURE	|
+	DOOR		|
+	TIME		|
+	WEATHER		|
+	STOP		;
+
+<object> = SHED	|
+	LAB	|
+	RADIO	;
+
+public <command> = <action> THE <object> LIGHT	|
+	<action> THE <object>			|
+	WHAT IS THE <action> OF THE <object>	|
+	IS THE <action> OF THE <object>	CLOSED	|
+	IS THE <action> OF THE <object> OPEN	|
+	WHAT <action> IS IT			|
+	WHAT WILL THE <action> BE LIKE		|
+	THANK YOU				|
+	WHO ARE YOU				;
