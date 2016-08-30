@@ -1,4 +1,4 @@
-# PiIoT
+# element14 Pi IoT Design Challenge
 Repository for my entry in element14's Pi IoT Design Challenge (https://www.element14.com/community/community/design-challenges/pi-iot).
 
 For this challenge, I set out to build a smart alarm clock and control unit for my home's automation.
