@@ -1,6 +1,6 @@
 class openhab2::mqtt (
   $broker1_name = "emonpi",
-  $broker1_url  = "tcp://192.168.0.233:1883",
+  $broker1_url  = "tcp://192.168.0.155:1883",
   $broker1_user = "emonpi",
   $broker1_password = "emonpimqtt2016",
   $broker1_qos = "2",
