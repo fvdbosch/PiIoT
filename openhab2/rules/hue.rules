@@ -1,18 +1,22 @@
 import org.joda.time.*
 import org.openhab.model.script.actions.Timer
 
-var Timer lightOn
-val int lightColorIndex = 0
 
-rule "Hue Color Cycle"
+var Timer lightOn
+var Timer wakeUpLightOff
+val int lightColorIndex1 = 0
+val int lightColorIndex2 = 0
+
+
+rule "Hue Color Cycle - Night Light 1"
 when
     Item EnOcean_sensor_00298B1A_A received update 
 then
     lightColorIndex += 1
-    var DecimalType hue = new DecimalType(lightColorIndex * 15)
+    var DecimalType hue = new DecimalType(lightColorIndex1 * 15)
 
     if(hue >= 360) {
-        lightColorIndex = 0
+        lightColorIndex1 = 0
     }
 
     var PercentType sat = new PercentType(100)
@@ -21,12 +25,63 @@ then
 
     sendCommand(Hue_Bulb_1_Color, light)
     
-    if(lightOn!=null) {
-       lightOn.cancel()
+    if(lightOn1!=null) {
+       lightOn1.cancel()
     }
-    lightOn = createTimer(now.plusMinutes(60)) [|
+    lightOn1 = createTimer(now.plusMinutes(60)) [|
         sendCommand(Hue_Bulb_1_Dimmer, 0)
     ]
 
 end
 
+
+rule "Hue Color Cycle - Night Light 2"
+when
+    Item EnOcean_sensor_00298B1A_A received update 
+then
+    lightColorIndex2 += 1
+    var DecimalType hue = new DecimalType(lightColorIndex2 * 15)
+
+    if(hue >= 360) {
+        lightColorIndex2 = 0
+    }
+
+    var PercentType sat = new PercentType(100)
+    var PercentType bright = new PercentType(100)
+    var HSBType light = new HSBType(hue,sat,bright)
+
+    sendCommand(Hue_Bulb_2_Color, light)
+    
+    if(lightOn2!=null) {
+       lightOn2.cancel()
+    }
+    lightOn2 = createTimer(now.plusMinutes(60)) [|
+        sendCommand(Hue_Bulb_2_Dimmer, 0)
+    ]
+
+end
+
+
+rule "Wake Up Light"
+when 
+    Time cron "0 45 6 * * 1-5"   // Every weekday 6:45 hours
+then
+    // Light 1
+    sendCommand(Hue_Bulb_1_Switch, ON)
+    sendCommand(Hue_Bulb_1_Color, HSBType::BLUE)
+    sendCommand(Hue_Bulb_1_Dimmer, 80)
+
+    // Light 2
+    sendCommand(Hue_Bulb_2_Switch, ON)
+    sendCommand(Hue_Bulb_2_Color, HSBType::GREEN)
+    sendCommand(Hue_Bulb_2_Dimmer, 80)
+
+    // Timer
+    if(wakeUpLightOff!=null) {
+        wakeUpLightOff.cancel()
+    }
+    wakeUpLightOff = createTimer(now.plusMinutes(30)) [|
+        sendCommand(Hue_Bulb_1_Switch, OFF)
+        sendCommand(Hue_Bulb_2_Switch, OFF)
+    ]
+end
