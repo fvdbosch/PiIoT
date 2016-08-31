@@ -1,8 +1,15 @@
 import org.openhab.model.script.actions.*
 
-rule "Power Consumption Threshold"
+rule "Power Consumption Threshold CT1"
 when
     Item emonpi_ct1 received update 
+then
+   //pushNotification("Energy Threshold", "<message>")
+end
+
+rule "Power Consumption Threshold CT2"
+when
+    Item emonpi_ct2 received update 
 then
    //pushNotification("Energy Threshold", "<message>")
 end
