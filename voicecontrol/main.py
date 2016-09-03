@@ -33,11 +33,21 @@ def getTemperature(room):
     playResponse("it is " + str(temperature)[:4] + " degrees in the " + room)
 
 def getWeather():
-    weather = os.popen('/home/pi/piiotvoice/weather.py').read()
-    #setSymbol(symbol)
+    symbol = ""
+    weather = os.popen('/home/pi/piiotvoice/weather.py').read().lower()
+    print weather
+
+    if "sunny" in weather:
+        symbol = "sun"
+    elif "cloudy" in weather:
+        symbol = "cloud"
+    elif "showers" in weather:
+        symbol = "rain"
+   
+    setSymbol(symbol)
     playResponse(weather)
 
-def getContact(door):
+def getContact(room):
     sensor = ""
     shed_sensor = "EnOcean_sensor_0180FC58"
     lab_sensor = "EnOcean_sensor_0180AAFA"
@@ -48,7 +58,7 @@ def getContact(door):
         sensor = lab_sensor
 
     contact = os.popen("curl http://192.168.0.152:8080/rest/items/" + sensor + "/state").read()
-    playResponse("the door of the " + door + " is " + contact)
+    playResponse("the door of the " + room + " is " + contact)
 
 def turnOnLight(room):
     return ""
@@ -65,7 +75,10 @@ def turnOffRadio():
     os.system("sudo killall mplayer")
 
 def setSymbol(symbol):
-    os.popen("/home/pi/piiotvoice/symbol.py " + symbol + " &")
+    os.system("/home/pi/piiotvoice/symbol.py " + symbol + " &")
+
+def thankYou():
+    playResponse("You're welcome")
 
 def whoAmI():
     setSymbol("whoami")
@@ -80,60 +93,32 @@ def runMain():
     while True:
         try:
             command = pocketSphinxListener.getCommand().lower()
-            command = command.replace('the', '')
-            command = command.replace('what', '')
-            command = command.replace('of', '')
-            command = command.replace('is', '')
-            command = command.replace('will', '')
-            command = command.replace('be', '')
-            command = command.replace('like', '')
-            command = command.replace('it', '')
-            command = command.replace('open', '')
-            command = command.replace('closed', '')
-            command = command.replace(' ', '')
 
             print "command: " + command
 
-            if command.startswith('time'):
+            if "time" in command:
                 getTime()
-
-            elif command.startswith('temperature'):
-                command = command.replace('temperature', '')
-                getTemperature(command)
-
-            elif command.startswith('door'):
-                command = command.replace('door', '')
-                getContact(command)            
-
-            elif command.startswith('turnon'):
-                command = command.replace('turnon', '')
-
-                if command.startswith('light'):
-                    command = command.replace('light', '')
-                    turnOnLight(command)
-
-                elif command.startswith('radio'):
+            elif "temperature" in command:
+                if "shed" in command:
+                    getTemperature("shed")
+                if "lab" in command:
+                    getTemperature("lab")
+            elif "door" in command:
+                if "shed" in command:
+                    getContact("shed")
+                if "lab" in command:
+                    getContact("lab")
+            elif "radio" in command:
+                if "turn on" in command:
                     turnOnRadio()
-
-            elif command.startswith('turnoff'):
-                command = command.replace('turnoff', '')
-
-                if command.startswith('light'):
-                    command = command.replace('light', '')
-                    turnOffLight(command)
-
-                elif command.startswith('radio'):
+                if "turn off" in command:
                     turnOffRadio()
-
-            elif command.startswith('wear'):
+            elif "weather" in command:
                 getWeather()
-
-            elif command.startswith('thankyou'):
-                response = "you're welcome"
-
-            elif command.startswith('whoareyou') or command.startswith('areyou'):
-                whoAmI()                
-
+            elif "who are you" in command:
+                whoAmI()
+            elif "thank you" in command:
+                thankYou()
 
         except (KeyboardInterrupt, SystemExit):
             print 'People sometimes make mistakes, Goodbye.'
