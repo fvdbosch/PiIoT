@@ -33,7 +33,7 @@ sitemap demo label="Pi IoT Challenge"
                 Slider         item=Hue_Bulb_2_ColorTemperature   label="Room 2 Color Temperature"
         }
         Frame label="Video" {
-                Image url="http://192.168.0.125:8080/" refresh=5000
-                Image url="http://192.168.0.166:8080/" refresh=5000
+                Image url="http://192.168.0.153:8080/" refresh=5000
+                Image url="http://192.168.0.154:8080/" refresh=5000
         }
 }
