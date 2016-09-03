@@ -4,6 +4,7 @@ The main.py script has been adapted and extended to suit my project, along with 
 
 Helper scripts:
 
+* voicecontrol.sh: automatically (re)start main.py
 * symbol.py: diplays a custom symbol on an 8x8 LED matrix
 * weather.py: retrieves the current and forecasted weather
 * response.py: converts a text response to voice
