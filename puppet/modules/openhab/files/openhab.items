@@ -1,8 +1,0 @@
-Switch EnOcean_sensor_00298B1A_A "Master A" <switch> (Switches) {enocean="{id=00:29:8B:1A, eep=F6:02:01, channel=A}"}
-Switch EnOcean_sensor_00298B1A_B "Master B" <switch> (Switches) {enocean="{id=00:29:8B:1A, eep=F6:02:01, channel=B}"}
-
-Contact EnOcean_sensor_0180FC58 "Door 1 [MAP(en.map):%s]" <door> (Contacts) {enocean="{id=01:80:FC:58, eep=D5:00:01, parameter=CONTACT_STATE}"}
-Contact EnOcean_sensor_0180AAFA "Door 2 [MAP(en.map):%s]" <door> (Contacts) {enocean="{id=01:80:AA:FA, eep=D5:00:01, parameter=CONTACT_STATE}"}
-
-Number EnOcean_sensor_01809DC1 "Room 1 [%.1f °C]" <temperature> (Temperature_Chart) {enocean="{id=01:80:9D:C1, eep=A5:02:05, parameter=TEMPERATURE}"}
-Number EnOcean_sensor_0181A67A "Room 2 [%.1f °C]" <temperature> (Temperature_Chart) {enocean="{id=01:81:A6:7A, eep=A5:02:05, parameter=TEMPERATURE}"}
