@@ -14,13 +14,14 @@ node 'pictrl_livingroom' {
 }
 
 node 'picam_shed', 'picam_lab' {
-  include base
+  include base::network
+  include base::camera
 }
 
 node 'emonpi' {
-  include base
+  include base::network
 }
 
 node 'keyholder' {
-  include base
+  include base::network
 }
